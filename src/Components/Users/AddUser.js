@@ -4,19 +4,22 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import classes from "./AddUser.module.css";
+import useDispatchUsers from "../../context/UsersProvider/useDispatchUsers";
+import generateID from "../../helpers/generateID";
 
-const AddUser = (props) => {
-	const [enteredName, setEnteredName] = useState("");
-	const [enteredAmount, setEnteredAmount] = useState("");
-	const [enteredEmail, setEnteredEmail] = useState("");
+const AddUser = () => {
+	const usersDispatcher = useDispatchUsers();
+	const [name, setName] = useState("");
+	const [amount, setAmount] = useState("");
+	const [email, setEmail] = useState("");
 	const [error, setError] = useState();
 
 	const addUserHandler = (event) => {
 		event.preventDefault();
 		if (
-			enteredName.trim().length === 0 ||
-			enteredAmount.trim().length === 0 ||
-			enteredEmail.trim().length === 0
+			name.trim().length === 0 ||
+			amount.trim().length === 0 ||
+			email.trim().length === 0
 		) {
 			setError({
 				title: "Invalid input",
@@ -25,28 +28,31 @@ const AddUser = (props) => {
 			});
 			return;
 		}
-		if (enteredAmount < 50) {
+		if (amount < 50) {
 			setError({
 				title: "Invalid amount",
 				message: "Please enter amount (> 50$).",
 			});
 			return;
 		}
-		props.onAddUser(enteredName, enteredAmount, enteredEmail);
-		setEnteredName("");
-		setEnteredAmount("");
-		setEnteredEmail("");
+		usersDispatcher({
+			type: "add",
+			payload: { id: generateID(), password: "123" },
+		});
+		setName("");
+		setAmount("");
+		setEmail("");
 	};
 
 	const nameChangeHandler = (event) => {
-		setEnteredName(event.target.value);
+		setName(event.target.value);
 	};
 
 	const amountChangeHandler = (event) => {
-		setEnteredAmount(event.target.value);
+		setAmount(event.target.value);
 	};
 	const emailChangeHandler = (event) => {
-		setEnteredEmail(event.target.value);
+		setEmail(event.target.value);
 	};
 	const errorHandler = () => {
 		setError(null);
@@ -68,7 +74,7 @@ const AddUser = (props) => {
 						<input
 							id="name"
 							type="text"
-							value={enteredName}
+							value={name}
 							onChange={nameChangeHandler}
 						/>
 					</div>
@@ -77,7 +83,7 @@ const AddUser = (props) => {
 						<input
 							id="email"
 							type="email"
-							value={enteredEmail}
+							value={email}
 							onChange={emailChangeHandler}
 						/>
 					</div>
@@ -86,7 +92,7 @@ const AddUser = (props) => {
 						<input
 							id="currency"
 							type="number"
-							value={enteredAmount}
+							value={amount}
 							onChange={amountChangeHandler}
 						/>
 					</div>

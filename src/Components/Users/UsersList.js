@@ -1,12 +1,15 @@
 import React from "react";
+import useUsers from "../../context/UsersProvider/useUsers";
 
 import Card from "../UI/Card";
 import classes from "./UsersList.module.css";
 
-const UsersList = (props) => {
+const UsersList = () => {
+	const users = useUsers();
+
 	return (
 		<Card className={classes.users}>
-			{props.users.map((user) => (
+			{users.map((user) => (
 				<ul key={user.id}>
 					<li>
 						<section>
