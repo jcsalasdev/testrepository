@@ -1,0 +1,41 @@
+.Aside-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 18%;
+	height: 93vh;
+	background-image: url(./white-gray-arrows.jpg);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-right: 2px solid violet;
+}
+.send-money {
+	margin-top: 2.5rem;
+}
+button {
+	cursor: pointer;
+	margin: 0.7rem;
+	font-size: 1.5rem;
+	font-weight: bold;
+	height: 2.3rem;
+	width: 10rem;
+	border-radius: 0.5rem;
+	background-image: linear-gradient(180deg, #9d17b8, #3e0a49, #230529);
+	color: white;
+	box-shadow: 0.2rem 0.2rem 0.3rem black;
+}
+button:active,
+button:hover {
+	background: #741188;
+	border-color: #741188;
+}
+.Accounts {
+	margin-top: 5rem;
+}
+
+.Budget,
+.Accounts {
+	height: 5rem;
+}

@@ -1,0 +1,45 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+html {
+	height: 100%;
+}
+h1,
+p {
+	font-family: Lato;
+}
+
+body {
+	background-image: url(./img/bg5.jpg);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	display: grid;
+}
+
+.rendered-container {
+	display: flex;
+}
+
+.rendered-budget {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.total {
+	background-color: rgba(31, 31, 31, 0.746);
+	padding: 0.5rem 1rem;
+	margin: 0.5rem 5.5rem;
+	width: 70vw;
+	max-width: 100%;
+	max-height: 26.3rem;
+	overflow-y: auto;
+	border-radius: 16px;
+	color: white;
+	font-size: 1rem;
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+}

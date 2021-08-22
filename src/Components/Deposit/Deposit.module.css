@@ -1,0 +1,38 @@
+.input {
+	margin: 2rem 5.5rem;
+	padding: 1rem;
+	width: 70vw;
+}
+.input form {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+
+	margin: auto 0.5rem;
+}
+.input label {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin: 0.5rem 1.5rem;
+	display: block;
+}
+
+.input input {
+	font: inherit;
+	padding: 0.5rem;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	width: 27rem;
+	margin: auto 1.5rem;
+}
+
+.input input:focus {
+	outline: none;
+	border-color: #4f005f;
+}
+.input button {
+	font-size: 1.2rem;
+	margin-top: 1rem;
+	margin-left: 1.5rem;
+	font-weight: bold;
+}

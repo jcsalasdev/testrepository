@@ -1,0 +1,47 @@
+.users {
+	margin: 2rem 5.5rem;
+	width: 70vw;
+	height: 29rem;
+	overflow-y: scroll;
+}
+.users::-webkit-scrollbar {
+	display: none;
+}
+.users ul {
+	list-style: none;
+	padding: 0.8rem 0.8rem 0;
+	max-height: 27rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.users h3 {
+	text-transform: capitalize;
+}
+.users h4 {
+	text-align: start;
+}
+.users section {
+	width: 10rem;
+}
+.users li {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #ccc;
+
+	padding: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: max-content;
+}
+
+.users div {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
