@@ -4,8 +4,9 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import classes from "./Deposit.module.css";
-
-const Deposit = (props) => {
+import useDispatachUsers from "../../context/UsersProvider/useDispatchUsers";
+const Deposit = () => {
+	const usersDispatcher = useDispatachUsers();
 	const [clientID, setClientID] = useState("");
 	const [depositAmount, setDepositAmount] = useState("");
 	const [error, setError] = useState();
@@ -29,8 +30,10 @@ const Deposit = (props) => {
 			});
 			return;
 		}
-		props.onDeposit(clientID, depositAmount);
-
+		usersDispatcher({
+			type: "deposit",
+			payload: { id: clientID, amount: depositAmount },
+		});
 		setClientID("");
 		setDepositAmount("");
 	};

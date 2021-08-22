@@ -4,12 +4,12 @@ function Aside() {
 	const { url } = useRouteMatch();
 	return (
 		<div className="Aside-container">
-			<Link to={`${url}/transfer`}>
-				<button className="send-money">Transfer</button>
+			<Link to={`${url}/deposit`}>
+				<button className="send-money">Deposit</button>
 			</Link>
 
-			<Link to={`${url}/deposit`}>
-				<button> Deposit</button>
+			<Link to={`${url}/transfer`}>
+				<button> Transfer</button>
 			</Link>
 
 			<Link to={`${url}/withdraw`}>

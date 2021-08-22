@@ -4,18 +4,17 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import classes from "./Withdraw.module.css";
+import useDispatchUsers from "../../context/UsersProvider/useDispatchUsers";
 
-const Withdraw = (props) => {
-	const [withdrawName, setWithdrawName] = useState("");
+const Withdraw = () => {
+	const [clientID, setWithdrawID] = useState("");
 	const [withdrawAmount, setWithdrawAmount] = useState("");
 	const [error, setError] = useState();
+	const usersDispatcher = useDispatchUsers();
 
 	const withdrawHandler = (event) => {
 		event.preventDefault();
-		if (
-			withdrawName.trim().length === 0 ||
-			withdrawAmount.trim().length === 0
-		) {
+		if (clientID.trim().length === 0 || withdrawAmount.trim().length === 0) {
 			setError({
 				title: "Invalid input",
 				message:
@@ -30,13 +29,17 @@ const Withdraw = (props) => {
 			});
 			return;
 		}
-		props.onAddUser(withdrawName, withdrawAmount);
-		setWithdrawName("");
+
+		usersDispatcher({
+			type: "withdraw",
+			payload: { id: clientID, amount: withdrawAmount },
+		});
+		setWithdrawID("");
 		setWithdrawAmount("");
 	};
 
-	const withdrawNameHandler = (event) => {
-		setWithdrawName(event.target.value);
+	const clientIDHandler = (event) => {
+		setWithdrawID(event.target.value);
 	};
 
 	const withdrawAmountHandler = (event) => {
@@ -59,12 +62,12 @@ const Withdraw = (props) => {
 			<Card className={classes.input}>
 				<form onSubmit={withdrawHandler}>
 					<div>
-						<label htmlFor="name">Name</label>
+						<label htmlFor="name">ID#</label>
 						<input
-							id="name"
+							id="ID"
 							type="text"
-							value={withdrawName}
-							onChange={withdrawNameHandler}
+							value={clientID}
+							onChange={clientIDHandler}
 						/>
 					</div>
 					<div>

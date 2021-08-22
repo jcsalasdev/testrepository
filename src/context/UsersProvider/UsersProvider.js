@@ -2,10 +2,25 @@ import { createContext, useReducer } from "react";
 import reducerFn from "./UsersReducer";
 const initialState = [
 	{
+		name: "jcdev",
+		id: "0",
+		email: "jcdev@mail.com",
+		password: "admin1",
+		balance: 1000,
+	},
+	{
 		name: "test subject",
-		id: 1,
+		id: "1",
 		email: "user1@mail.com",
 		password: "User1pass",
+		balance: 1000,
+	},
+
+	{
+		name: "test subject2",
+		id: "2",
+		email: "user2@mail.com",
+		password: "User2pass",
 		balance: 1000,
 	},
 ];

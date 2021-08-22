@@ -4,9 +4,12 @@ import NewExpense from "./Components/NewExpense/NewExpense";
 import Expenses from "./Components/Expenses/Expenses";
 import NavBar from "./Components/Nav/NavBar";
 import "./style.css";
+import { useAuth } from "./context/UseAuth/UseAuth";
+import { Redirect } from "react-router-dom";
 
 const BudgetApp2 = () => {
-	const balance = 300000;
+	const user = useAuth();
+	const balance = user?.balance || 0;
 	const [expenses, setExpenses] = useState([
 		{
 			id: "e1",
@@ -35,6 +38,12 @@ const BudgetApp2 = () => {
 		localStorage.setItem("expenses", JSON.stringify(expenses));
 	}, [expenses]);
 
+	if (!user) {
+		return <Redirect to="/signin" />;
+	}
+	if (user.id === "0") {
+		return <Redirect to="/admin" />;
+	}
 	return (
 		<>
 			<NavBar />

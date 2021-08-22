@@ -10,7 +10,7 @@ const SignUpForm = (props) => {
 
 	const signUpHandler = (event) => {
 		event.preventDefault();
-		props.onSignUp(name, email, username, password);
+
 		setUserName("");
 		setPassword("");
 	};

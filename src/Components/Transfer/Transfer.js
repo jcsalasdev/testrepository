@@ -4,16 +4,20 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import classes from "./Transfer.module.css";
+import useDispatchUsers from "../../context/UsersProvider/useDispatchUsers";
 
-const Transfer = (props) => {
-	const [transferName, setTransferName] = useState("");
+const Transfer = () => {
+	const [fromID, setFromID] = useState("");
+	const [toID, setToID] = useState("");
 	const [transferAmount, setTransferAmount] = useState("");
 	const [error, setError] = useState();
+	const userDispatcher = useDispatchUsers();
 
 	const transferHandler = (event) => {
 		event.preventDefault();
 		if (
-			transferName.trim().length === 0 ||
+			toID.trim().length === 0 ||
+			fromID.trim().length === 0 ||
 			transferAmount.trim().length === 0
 		) {
 			setError({
@@ -30,13 +34,20 @@ const Transfer = (props) => {
 			});
 			return;
 		}
-		props.onTransfer(transferName, transferAmount);
-		setTransferName("");
+		userDispatcher({
+			type: "transfer",
+			payload: { to: toID, from: fromID, amount: transferAmount },
+		});
+		setToID("");
+		setFromID("");
 		setTransferAmount("");
 	};
 
-	const transferNameHandler = (event) => {
-		setTransferName(event.target.value);
+	const fromIDHandler = (event) => {
+		setFromID(event.target.value);
+	};
+	const toIDHandler = (event) => {
+		setToID(event.target.value);
 	};
 
 	const transferAmountHandler = (event) => {
@@ -59,13 +70,17 @@ const Transfer = (props) => {
 			<Card className={classes.input}>
 				<form onSubmit={transferHandler}>
 					<div>
-						<label htmlFor="name">Name</label>
+						<label htmlFor="id1">From ID#</label>
 						<input
-							id="name"
+							id="id1"
 							type="text"
-							value={transferName}
-							onChange={transferNameHandler}
+							value={fromID}
+							onChange={fromIDHandler}
 						/>
+					</div>
+					<div>
+						<label htmlFor="ID">to ID</label>
+						<input id="ID" type="number" value={toID} onChange={toIDHandler} />
 					</div>
 					<div>
 						<label htmlFor="amount">Transfer Amount</label>

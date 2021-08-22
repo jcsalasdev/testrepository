@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import "./SignInForm.css";
 import ErrorModal from "../UI/ErrorModal";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import useUsers from "../../context/UsersProvider/useUsers";
+import { useAuthDispatch } from "../../context/UseAuth/UseAuth";
 
 const SignInForm = (props) => {
-	const [enteredUsername, setUserName] = useState("");
+	const users = useUsers();
+	const history = useHistory();
+	const authDispatcher = useAuthDispatch();
+	const [enteredEmail, setEmail] = useState("");
 	const [enteredPassword, setPassword] = useState("");
 	const [error, setError] = useState();
 
 	const signInHandler = (event) => {
 		event.preventDefault();
 		if (
-			enteredUsername.trim().length === 0 ||
+			enteredEmail.trim().length === 0 ||
 			enteredPassword.trim().length === 0
 		) {
 			setError({
@@ -21,13 +26,32 @@ const SignInForm = (props) => {
 			});
 			return;
 		}
+		const foundUser = users.find(function (user) {
+			return user.email === enteredEmail;
+		});
+		if (!foundUser) {
+			setError({
+				title: "Invalid input",
+				message: "Email not found.",
+			});
+			return;
+		}
 
-		props.onSignIn(enteredUsername, enteredPassword);
-		setUserName("");
+		if (foundUser.password !== enteredPassword) {
+			setError({
+				title: "Invalid input",
+				message: "Wrong password.",
+			});
+			return;
+		}
+		authDispatcher({ type: "login", payload: foundUser });
+		history.push("/");
+		setEmail("");
 		setPassword("");
+		setError(null);
 	};
-	const userNameHandler = (event) => {
-		setUserName(event.target.value);
+	const emailHandler = (event) => {
+		setEmail(event.target.value);
 	};
 	const passwordHandler = (event) => {
 		setPassword(event.target.value);
@@ -49,12 +73,12 @@ const SignInForm = (props) => {
 					la casa <span>de</span> papel
 				</div>
 				<label className="label" htmlFor="usrname">
-					Username
+					Email
 				</label>
 				<input
-					type="text"
-					value={enteredUsername}
-					onChange={userNameHandler}
+					type="email"
+					value={enteredEmail}
+					onChange={emailHandler}
 					name="Name"
 					className="user-name"
 					required
@@ -68,16 +92,14 @@ const SignInForm = (props) => {
 					onChange={passwordHandler}
 					id="psw"
 					name="psw"
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
 					title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
 					required
 				/>
 				<div className="container-btn">
-					<Link to="/Admin/UserData">
-						<button className="btn" type="submit" value="submit">
-							Sign In
-						</button>
-					</Link>
+					<button className="btn" type="submit" value="submit">
+						Sign In
+					</button>
+
 					<Link to="/signup">
 						<button className="btn">Sign Up</button>
 					</Link>

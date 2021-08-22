@@ -5,18 +5,18 @@ import AddUser from "./Components/Users/AddUser";
 import UsersList from "./Components/Users/UsersList";
 import NavBar from "./Components/Nav/NavBar";
 import Aside from "./Components/AsideNav/Aside";
-import { Route, useRouteMatch } from "react-router-dom";
+import { Redirect, Route, useRouteMatch } from "react-router-dom";
+import { useAuth } from "./context/UseAuth/UseAuth";
 
-const usersList = [
-	{
-		name: "hello",
-		balance: "3000",
-		email: "mail@mail.com",
-		id: "12321",
-	},
-];
 const BankingApp = () => {
+	const user = useAuth();
 	const { url } = useRouteMatch();
+	if (!user) {
+		return <Redirect to="/signin" />;
+	}
+	if (user.id !== "0") {
+		return <Redirect to="/" />;
+	}
 	return (
 		<div>
 			<NavBar />
@@ -24,14 +24,11 @@ const BankingApp = () => {
 				<Aside />
 
 				<div>
-					<Route exact path={`${url}/transfer`} component={Deposit} />
-					<Route exact path={`${url}/deposit`} component={Transfer} />
+					<Route exact path={`${url}/deposit`} component={Deposit} />
+					<Route exact path={`${url}/transfer`} component={Transfer} />
 					<Route exact path={`${url}/withdraw`} component={Withdraw} />
-					<Route exact path={`${url}/add-user`}>
-						<AddUser onAddUser={() => {}} />
-					</Route>
-
-					<UsersList users={usersList} />
+					<Route exact path={`${url}/add-user`} component={AddUser} />
+					<UsersList />
 				</div>
 			</div>
 		</div>

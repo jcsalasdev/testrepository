@@ -37,7 +37,13 @@ const AddUser = () => {
 		}
 		usersDispatcher({
 			type: "add",
-			payload: { id: generateID(), password: "123" },
+			payload: {
+				name: name,
+				email: email,
+				id: generateID(),
+				password: "123",
+				balance: amount,
+			},
 		});
 		setName("");
 		setAmount("");

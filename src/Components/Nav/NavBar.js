@@ -6,8 +6,7 @@ function NavBar() {
 	return (
 		<div className="Nav-container">
 			<ul className="Nav-container_ul">
-				<li className="name">Admin</li>
-				<Link to="/" style={{ textDecoration: "none", color: "white" }}>
+				<Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
 					<li className="sign-out">Sign Out</li>
 				</Link>
 			</ul>
